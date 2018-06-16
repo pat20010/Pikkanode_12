@@ -1,9 +1,11 @@
-const signInGetHandler = (ctx) => {
-  ctx.body = 'sign in get'
+const signInGetHandler = async (ctx) => {
+  await ctx.render('signin', {
+  })
 }
 
 const signInPostHandler = (ctx) => {
-  ctx.body = 'sign in post'
+  console.log()
+  ctx.redirect('/')
 }
 
 const signUpGetHandler = (ctx) => {
