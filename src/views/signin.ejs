@@ -1,21 +1,51 @@
-<form class="form-signin  block-form" method="POST">
-    <div class="text-center mb-4">
-        <img class="mb-4" src="images/letter-p.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">PikkaNode</h1>
-        <p>Login to pikkanode</p>
-    </div>
+<!-- row -->
+<div class="row-column justify-content-center my-5 ml-10 mr-10">
+    <!-- card -->
+    <div class="card ml-30 mr-30">
+        <!-- card header -->
+        <header class="card-header py-0 text-center">
+            <img class="my-4" src="images/letter-p.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">PikkaNode</h1>
+            <p>Login to pikkanode</p>
+        </header>
+        <!-- card header.// -->
 
-    <div class="form-label-group mb-2">
-        <label for="inputEmail">Email address</label>
-        <input id="inputEmail" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
-    </div>
+        <!-- card body -->
+        <article class="card-body">
+            <!-- form sign in -->
+            <form method="POST">
+                <!-- form-group -->
+                <div class="form-group">
+                    <label for="inputEmail">Email address</label>
+                    <input id="inputEmail" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+                </div>
+                <!-- form-group.// -->
 
-    <div class="form-label-group">
-        <label for="inputPassword">Password</label>
-        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
-    </div>
+                <!-- form-group -->
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
+                </div>
+                <!-- form-group.// -->
 
-    <div class="checkbox mb-3">
+                <!-- form-check box -->
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <!-- form-check box.// -->
+
+                <!-- form-group -->
+                <div class="form-group">
+                    <button class="btn btn-dark btn-block">Sign in</button>
+                </div>
+                <!-- form-group.// -->
+            </form>
+            <!-- form sign in.// -->
+        </article>
+        <!-- card body.// -->
     </div>
-    <button class="btn btn-dark btn-block">Sign in</button>
-</form>
+    <!-- card.// -->
+</div>
+<!-- row.// -->
