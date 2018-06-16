@@ -1,3 +1,5 @@
+const pool = require('../config/connectDB')
+
 const signInGetHandler = async (ctx) => {
   await ctx.render('signin', {
   })
@@ -8,12 +10,25 @@ const signInPostHandler = (ctx) => {
   ctx.redirect('/')
 }
 
-const signUpGetHandler = (ctx) => {
-  ctx.body = 'sign up get'
+const signUpGetHandler = async (ctx) => {
+  await ctx.render('signup')
 }
 
-const signUpPostHandler = (ctx) => {
-  ctx.body = 'sign up post'
+const signUpPostHandler = async (ctx) => {
+  const insertUser = `INSERT INTO users(email, password) VALUES (?, ?)`
+  let reqEmail = ctx.request.body.email
+  let reqPassword = ctx.request.body.password
+
+  try {
+    const [rowsInsert] = await pool.query(insertUser, [reqEmail, reqPassword])
+    console.log(rowsInsert)
+
+    ctx.redirect('/signin')
+  } catch (en) {
+    console.log(en)
+
+    ctx.redirect('/signup')
+  }
 }
 
 module.exports.signIn = {
