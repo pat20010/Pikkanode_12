@@ -4,39 +4,46 @@
     <div class="card ml-30 mr-30">
         <!-- card header -->
         <header class="card-header py-0 text-center">
-            <img class="my-4" src="images/letter-p.svg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">PikkaNode</h1>
-            <p>Login to pikkanode</p>
+            <img class="my-3" src="images/letter-p.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-1 font-weight-normal">PikkaNode</h1>
+            <p class="mb-2">Login to pikkanode</p>
         </header>
         <!-- card header.// -->
 
         <!-- card body -->
-        <article class="card-body">
+        <article class="card-body px-3">
 
             <% if (flash && flash.error) { %>
-                <p style="color: red;">
-                    <%= flash.error %>
-                </p>
+                <!-- alert error -->
+                <div class="alert alert-danger alert-dismissible fade show py-2" role="alert">
+                    <strong>
+                        <%= flash.error %>!
+                    </strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- alert error -->
                 <% } %>
 
                     <!-- form sign in -->
                     <form method="POST">
                         <!-- form-group -->
-                        <div class="form-group">
-                            <label for="inputEmail">Email address</label>
-                            <input id="inputEmail" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+                        <div class="form-group form-control-sm mb-1">
+                            <label for="inputEmail">Username or email</label>
+                            <input id="inputEmail" name="email" class="form-control" placeholder="" required="" autofocus="">
                         </div>
                         <!-- form-group.// -->
 
                         <!-- form-group -->
-                        <div class="form-group">
+                        <div class="form-group form-control-sm mb-1">
                             <label for="inputPassword">Password</label>
-                            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
+                            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="" required="">
                         </div>
                         <!-- form-group.// -->
 
                         <!-- form-check box -->
-                        <div class="checkbox mb-3">
+                        <div class="checkbox form-control-sm">
                             <label>
                                 <input type="checkbox" value="remember-me"> Remember me
                             </label>
@@ -44,7 +51,7 @@
                         <!-- form-check box.// -->
 
                         <!-- form-group -->
-                        <div class="form-group">
+                        <div class="form-group form-control-sm mb-0">
                             <button class="btn btn-dark btn-block">Sign in</button>
                         </div>
                         <!-- form-group.// -->
@@ -52,6 +59,12 @@
                     <!-- form sign in.// -->
         </article>
         <!-- card body.// -->
+
+        <footer class="border-top card-body text-center py-2">Don't have a Account?
+            <a href="/signup">Sign Up</a>
+        </footer>
+
+
     </div>
     <!-- card.// -->
 </div>
