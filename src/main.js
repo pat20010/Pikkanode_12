@@ -1,5 +1,6 @@
 const Koa = require('koa')
 const render = require('koa-ejs')
+const session = require('koa-session')
 const router = require('./routes/index')
 const serve = require('koa-static')
 const path = require('path')
@@ -13,8 +14,37 @@ render(app, {
   cache: false
 })
 
-app.use(serve(path.join(__dirname, 'public')))
+const sessionStore = {}
+const sessionConfig = {
+  key: 'asd',
+  maxAge: 1000 * 60 * 60,
+  httpOnly: true,
+  store: {
+    get (key) {
+      return sessionStore[key]
+    },
 
+    set (key, asd) {
+      sessionStore[key] = asd
+    },
+
+    destroy (key) {
+      delete sessionStore[key]
+    }
+  }
+}
+
+const flash = async (ctx, next) => { // Flash middleware
+  if (!ctx.session) throw new Error('flash message required session')
+  ctx.flash = ctx.session.flash
+  delete ctx.session.flash
+  await next()
+}
+
+app.use(serve(path.join(__dirname, 'public')))
+app.keys = ['supersecret']
+app.use(session(sessionConfig, app))
+app.use(flash)
 app.use(router.routes())
 app.use(router.allowedMethods())
 
