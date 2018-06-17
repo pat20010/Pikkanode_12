@@ -1,42 +1,48 @@
-const pool = require('../config/connectDB')
+const mysqlError = require('mysql2/lib/constants/errors')
+const usersModel = require('../models/users')
+const bcrypt = require('bcrypt')
 
-const signInGetHandler = async (ctx) => {
-  await ctx.render('signin', {
-  })
-}
+module.exports = function (pool) {
+  return {
 
-const signInPostHandler = (ctx) => {
-  console.log()
-  ctx.redirect('/')
-}
+    async signInGetHandler (ctx) {
+      await ctx.render('signin', {
+      })
+    },
 
-const signUpGetHandler = async (ctx) => {
-  await ctx.render('signup')
-}
+    async signInPostHandler (ctx) {
+      console.log()
+      ctx.redirect('/')
+    },
 
-const signUpPostHandler = async (ctx) => {
-  const insertUser = `INSERT INTO users(email, password) VALUES (?, ?)`
-  let reqEmail = ctx.request.body.email
-  let reqPassword = ctx.request.body.password
+    async signUpGetHandler (ctx) {
+      await ctx.render('signup')
+    },
 
-  try {
-    const [rowsInsert] = await pool.query(insertUser, [reqEmail, reqPassword])
-    console.log(rowsInsert)
+    async signUpPostHandler (ctx) {
+      let reqEmail = ctx.request.body.email
+      let reqPassword = ctx.request.body.password
+      const encryptPassword = await bcrypt.hash(reqPassword, 12)
+      console.log(encryptPassword)
 
-    ctx.redirect('/signin')
-  } catch (en) {
-    console.log(en)
+      try {
+        const [rowsInsert] = await usersModel.insertUsers(pool, reqEmail, reqPassword)
+        console.log(rowsInsert)
 
-    ctx.redirect('/signup')
+        ctx.redirect('/signin')
+      } catch (err) {
+        console.log(err)
+
+        switch (err.errno) {
+          case mysqlError.ER_DUP_ENTRY:
+            ctx.status = 400
+            ctx.body = `Email already used`
+            break
+          default:
+            ctx.status = 500
+            ctx.body = `Server Error`
+        }
+      }
+    }
   }
-}
-
-module.exports.signIn = {
-  signInGetHandler,
-  signInPostHandler
-}
-
-module.exports.signUp = {
-  signUpGetHandler,
-  signUpPostHandler
 }
