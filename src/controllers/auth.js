@@ -6,17 +6,37 @@ module.exports = function (pool) {
   return {
 
     async signInGetHandler (ctx) {
-      await ctx.render('signin', {
-      })
+      console.log(`Flash : ` + ctx.flash)
+      const data = {
+        flash: ctx.flash
+      }
+      console.log(data)
+      await ctx.render('signin', data)
     },
 
     async signInPostHandler (ctx) {
-      console.log()
+      let reqEmail = ctx.request.body.email
+      let reqPassword = ctx.request.body.password
+      const [rowsUser] = await usersModel.findByEmail(pool, reqEmail)
+
+      if (!rowsUser) {
+        ctx.session.flash = { error: 'Invalid email or password' }
+        return ctx.redirect('/signin')
+      }
+      console.log(rowsUser)
+
+      const same = await bcrypt.compare(reqPassword, rowsUser.password)
+      if (!same) {
+        ctx.session.flash = { error: `Invalid email or password` }
+        console.log(ctx.session.flash)
+        return ctx.redirect('/signin')
+      }
+
       ctx.redirect('/')
     },
 
     async signUpGetHandler (ctx) {
-      await ctx.render('signup')
+      await ctx.render('/signup')
     },
 
     async signUpPostHandler (ctx) {
@@ -26,7 +46,7 @@ module.exports = function (pool) {
       console.log(encryptPassword)
 
       try {
-        const [rowsInsert] = await usersModel.insertUsers(pool, reqEmail, reqPassword)
+        const rowsInsert = await usersModel.insertUsers(pool, reqEmail, encryptPassword)
         console.log(rowsInsert)
 
         ctx.redirect('/signin')
