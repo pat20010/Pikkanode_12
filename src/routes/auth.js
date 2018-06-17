@@ -7,7 +7,7 @@ const router = new Router()
 const auth = authController(pool)
 
 router.get('/signin', auth.signInGetHandler)
-router.post('/signin', auth.signInPostHandler)
+router.post('/signin', koaBody(), auth.signInPostHandler)
 
 router.get('/signup', auth.signUpGetHandler)
 router.post('/signup', koaBody(), auth.signUpPostHandler)

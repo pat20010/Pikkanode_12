@@ -12,37 +12,44 @@
 
         <!-- card body -->
         <article class="card-body">
-            <!-- form sign in -->
-            <form method="POST">
-                <!-- form-group -->
-                <div class="form-group">
-                    <label for="inputEmail">Email address</label>
-                    <input id="inputEmail" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
-                </div>
-                <!-- form-group.// -->
 
-                <!-- form-group -->
-                <div class="form-group">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
-                </div>
-                <!-- form-group.// -->
+            <% if (flash && flash.error) { %>
+                <p style="color: red;">
+                    <%= flash.error %>
+                </p>
+                <% } %>
 
-                <!-- form-check box -->
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
-                <!-- form-check box.// -->
+                    <!-- form sign in -->
+                    <form method="POST">
+                        <!-- form-group -->
+                        <div class="form-group">
+                            <label for="inputEmail">Email address</label>
+                            <input id="inputEmail" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+                        </div>
+                        <!-- form-group.// -->
 
-                <!-- form-group -->
-                <div class="form-group">
-                    <button class="btn btn-dark btn-block">Sign in</button>
-                </div>
-                <!-- form-group.// -->
-            </form>
-            <!-- form sign in.// -->
+                        <!-- form-group -->
+                        <div class="form-group">
+                            <label for="inputPassword">Password</label>
+                            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
+                        </div>
+                        <!-- form-group.// -->
+
+                        <!-- form-check box -->
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                            </label>
+                        </div>
+                        <!-- form-check box.// -->
+
+                        <!-- form-group -->
+                        <div class="form-group">
+                            <button class="btn btn-dark btn-block">Sign in</button>
+                        </div>
+                        <!-- form-group.// -->
+                    </form>
+                    <!-- form sign in.// -->
         </article>
         <!-- card body.// -->
     </div>
