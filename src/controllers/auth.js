@@ -28,10 +28,10 @@ module.exports = function (pool) {
       const same = await bcrypt.compare(reqPassword, rowsUser.password)
       if (!same) {
         ctx.session.flash = { error: `Invalid email or password` }
-        console.log(ctx.session.flash)
         return ctx.redirect('/signin')
       }
 
+      ctx.session.userId = 20010
       ctx.redirect('/')
     },
 
