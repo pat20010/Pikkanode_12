@@ -34,17 +34,9 @@ const sessionConfig = {
   }
 }
 
-const flash = async (ctx, next) => { // Flash middleware
-  if (!ctx.session) throw new Error('flash message required session')
-  ctx.flash = ctx.session.flash
-  delete ctx.session.flash
-  await next()
-}
-
 app.use(serve(path.join(__dirname, 'public')))
 app.keys = ['supersecret']
 app.use(session(sessionConfig, app))
-app.use(flash)
 app.use(router.routes())
 app.use(router.allowedMethods())
 
