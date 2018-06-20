@@ -16,5 +16,25 @@
 }
 
 .bg-pikkanode {
-    background-color: rgb(218, 218, 218)
+  background-color: rgb(218, 218, 218);
+}
+
+.main-body {
+  background-color: #f8f8f8;
+}
+
+.navbar-login {
+  width: 305px;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+
+.navbar-login-session {
+  padding: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.icon-size {
+  font-size: 87px;
 }
