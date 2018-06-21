@@ -1,0 +1,55 @@
+<div class="main-body">
+
+    <!-- card container -->
+    <article class="container">
+        <!-- row -->
+        <div class="row justify-content-center">
+            <!-- card -->
+            <div class="card m-5">
+                <!-- Upload  -->
+                <article class="card-body p-0">
+                    <!-- form sign up -->
+                    <form method="POST">
+
+                        <div class="form-group form-control-sm mb-2 m-0 p-0 mw-100 p-3">
+                            <img id="blah" class="card-img-top h-100" src="/images/icon_blank.png" alt="your image" />
+                        </div>
+
+                        <!-- form-group -->
+                        <div class="form-group form-control-sm mb-2 px-3">
+                            <textarea class="form-control" id="message" name="caption" aria-label="With textarea" placeholder="Please enter your captions here..." rows="5"></textarea>
+                        </div>
+                        <!-- form-group.// -->
+
+                        <!-- Form actions -->
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 text-left">
+                                    <div id='blockSelectImage' class="form-group form-control-sm mb-2 px-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" style="display: none" id="inputGroupFile01" onchange="readURL(this);">
+                                            <label for="inputGroupFile01" class="btn btn-outline-success">Select image</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <div class="form-group form-control-sm mb-2 px-3">
+                                        <button class="btn btn-dark">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- form sign up.// -->
+                </article>
+                <!-- card-body end .// -->
+            </div>
+            <!-- card.// -->
+        </div>
+        <!-- row.//-->
+
+    </article>
+    <!-- card container.// -->
+
+    <body>
