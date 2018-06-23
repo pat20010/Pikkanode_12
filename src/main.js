@@ -4,8 +4,14 @@ const session = require('koa-session')
 const router = require('./routes/index')
 const serve = require('koa-static')
 const path = require('path')
+const cors = require('@koa/cors')
+const fse = require('fs-extra')
 
 const app = new Koa()
+
+const dirPathImage = path.join(process.cwd(), 'src', 'public', 'imagesUpload')
+
+app.use(cors())
 
 render(app, {
   root: path.join(__dirname, 'views'),
@@ -40,4 +46,6 @@ app.use(session(sessionConfig, app))
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-app.listen(3000)
+fse.ensureDir(dirPathImage, () => {
+  app.listen(3000)
+})
