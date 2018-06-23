@@ -22,7 +22,7 @@ const flash = async (ctx, next) => { // Flash middleware
 router.use(flash)
 router.use(require('./main'))
 router.use(require('./auth'))
-router.use(require('./pikka'))
 router.use(authen)
+router.use(require('./pikka'))
 
 module.exports = router

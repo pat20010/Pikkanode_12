@@ -7,7 +7,7 @@ const router = new Router()
 const auth = authController(pool)
 
 const authAlready = async (ctx, next) => { // Auth already exist
-  if (ctx.session && (ctx.session.userId && ctx.session.userId === 20010)) {
+  if (ctx.session && ctx.session.userId) {
     console.log(`session userId : ${ctx.session.userId}`)
     return ctx.redirect('/')
   }
