@@ -30,10 +30,10 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <p class="text-left mb-1">
-                                            <strong>Nombre Apellido</strong>
+                                        <p class="text-left mb-0">
+                                            <strong>Thanapon Jaisanuk</strong>
                                         </p>
-                                        <p class="text-left small mb-1">correoElectronico@email.com</p>
+                                        <p class="text-left small mb-1">thanapon.jsn@gmail.com</p>
                                         <a class="btn btn-dark btn-block btn-sm" href="#">Log out</a>
                                     </div>
                                 </div>
@@ -51,13 +51,20 @@
     <article class="container mt-5">
         <div class="row pt-4">
             <!-- col card -->
+
+            <% if (allPicture != null) { %>
+
+            <% allPicture.forEach(dataPicture => { %>
+            
+            <% let imagePic = `<img class="card-img-top" src="/imagesUpload/${dataPicture.id}.jpg" height="230px">` %>
+
             <div class="col-sm-6 col-md-3">
                 <!-- card -->
                 <div class="card mb-3">
-                    <img class="card-img-top" src="/images/image1.jpg" height="230px">
+                    <%- imagePic %>
                     <div class="card-body py-0 px-3">
-                        <h5 class="card-title mt-2">Thanapon Jaisanuk</h5>
-                        <p class="card-text mb-2">20 JUNE 2018 | 18:11</p>
+                        <h5 class="card-title mt-2"><%= dataPicture.caption %></h5>
+                        <p class="card-text mb-2"><%= dataPicture.created_at %></p>
 
                         <div class="border-top py-2">
                             <small class="text-muted">21 Likes</small>
@@ -67,85 +74,10 @@
                 </div>
                 <!-- card.// -->
             </div>
-            <!-- col card.// -->
-
-            <!-- col card -->
-            <div class="col-sm-6 col-md-3">
-
-                <div class="card mb-3">
-                    <img class="card-img-top" src="/images/image1.jpg" height="230px">
-                    <div class="card-body py-0 px-3">
-                        <h5 class="card-title mt-2">Thanapon Jaisanuk</h5>
-                        <p class="card-text mb-2">20 JUNE 2018 | 18:11</p>
-
-                        <div class="border-top py-2">
-                            <small class="text-muted">21 Likes</small>
-                            <small class="text-muted">2 Comments</small>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- col card.// -->
-
-            <!-- col card -->
-            <div class="col-sm-6 col-md-3">
-
-                <div class="card mb-3">
-                    <img class="card-img-top" src="/images/image1.jpg" height="230px">
-                    <div class="card-body py-0 px-3">
-                        <h5 class="card-title mt-2">Thanapon Jaisanuk</h5>
-                        <p class="card-text mb-2">20 JUNE 2018 | 18:11</p>
-
-                        <div class="border-top py-2">
-                            <small class="text-muted">21 Likes</small>
-                            <small class="text-muted">2 Comments</small>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- col card.// -->
-
-            <!-- col card -->
-            <div class="col-sm-6 col-md-3">
-
-                <div class="card mb-3">
-                    <img class="card-img-top" src="/images/image1.jpg" height="230px">
-                    <div class="card-body py-0 px-3">
-                        <h5 class="card-title mt-2">Thanapon Jaisanuk</h5>
-                        <p class="card-text mb-2">20 JUNE 2018 | 18:11</p>
-
-                        <div class="border-top py-2">
-                            <small class="text-muted">21 Likes</small>
-                            <small class="text-muted">2 Comments</small>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- col card.// -->
-
-            <!-- col card -->
-            <div class="col-sm-6 col-md-3">
-
-                <div class="card mb-3">
-                    <img class="card-img-top" src="/images/image2.jpg" height="230px">
-                    <div class="card-body py-0 px-3">
-                        <h5 class="card-title mt-2">Thanapon Jaisanuk</h5>
-                        <p class="card-text mb-2">20 JUNE 2018 | 18:11</p>
-
-                        <div class="border-top py-2">
-                            <small class="text-muted">21 Likes</small>
-                            <small class="text-muted">2 Comments</small>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+           <%  }) %>
+       <% } %>
             <!-- col card.// -->
         </div>
     </article>
     <!-- card container.// -->
-
 </div>
