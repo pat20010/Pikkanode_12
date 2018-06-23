@@ -1,31 +1,46 @@
+const pool = require('../config/connectDB')
+
+async function getAllPictureData () {
+  const [result] = await pool.query(`
+    SELECT * 
+    FROM pictures
+    `)
+
+  return result
+}
+
+async function getPictureDataById (id) {
+  const result = await pool.query(`
+    SELECT * 
+    FROM pictures 
+    WHERE id = ?
+    `, [id])
+
+  return result[0]
+}
+
+async function removePictureById (id) {
+  const result = await pool.query(`
+    DELETE 
+    FROM pictures 
+    WHERE id = ?
+    `, [id])
+
+  return result
+}
+
+async function insertPicture (id, caption, createdBy) {
+  const result = await pool.query(`
+    INSERT INTO pictures (id, caption, created_by) 
+    VALUES (?, ?, ?)
+    `, [id, caption, createdBy])
+
+  return result
+}
+
 module.exports = {
-
-  async createEntity (row) {
-    if (!row.id) { return {} }
-
-    return {
-      id: row.id
-    }
-  },
-
-  async findAll (pool) {
-    const [rows] = await pool.query(`SELECT * FROM pictures`)
-    console.log(rows)
-    return rows
-  },
-
-  async findById (pool, id) {
-    const [rows] = await pool.query(`SELECT * FROM pictures WHERE id = ?`, [id])
-    return rows
-  },
-
-  async removeById (pool, id) {
-    const [rowsRemove] = await pool.query(`DELETE FROM pictures WHERE id = ?`, [id])
-    return rowsRemove
-  },
-
-  async insertPictures (pool, id, caption, createdBy) {
-    const rowInsert = await pool.query(`INSERT INTO pictures (id, caption, created_by) VALUES (?, ?, ?)`, [id, caption, createdBy])
-    return rowInsert
-  }
+  getAllPictureData,
+  getPictureDataById,
+  removePictureById,
+  insertPicture
 }

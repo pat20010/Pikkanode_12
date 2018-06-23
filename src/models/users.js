@@ -1,35 +1,57 @@
-module.exports = {
-  async createEntity (row) {
-    if (!row.id) { return {} }
+const pool = require("../config/connectDB");
 
-    return {
-      id: row.id,
-      name: row.name
-    }
-  },
+async function getAllUserData () {
+  const [result] = await pool.query(`
+    SELECT * 
+    FROM users
+    `);
 
-  async findAll (pool) {
-    const [rows] = await pool.query(`SELECT * FROM users`)
-    return rows
-  },
-
-  async findById (pool, id) {
-    const [rows] = await pool.query(`SELECT * FROM users WHERE id = ?`, [id])
-    return rows
-  },
-
-  async findByEmail (pool, email) {
-    const [rows] = await pool.query(`SELECT * FROM users WHERE email = ?`, [email])
-    return rows
-  },
-
-  async removeById (pool, id) {
-    const [rowsRemove] = await pool.query(`DELETE FROM users WHERE id = ?`, [id])
-    return rowsRemove
-  },
-
-  async insertUsers (pool, email, password) {
-    const rowInsert = await pool.query(`INSERT INTO users (email, password) VALUES (?, ?)`, [email, password])
-    return rowInsert
-  }
+  return result;
 }
+
+async function getUserDataById (id) {
+  const result = await pool.query(`
+    SELECT * 
+    FROM users 
+    WHERE id = ?
+    `, [id]);
+
+  return result[0];
+}
+
+async function getUserDataByEmail (email) {
+  const result = await pool.query(`
+    SELECT * 
+    FROM users 
+    WHERE email = ?
+    `, [email]);
+
+  return result[0];
+}
+
+async function removeUserById (id) {
+  const result = await pool.query(`
+    DELETE 
+    FROM users 
+    WHERE id = ?
+    `, [id]);
+
+  return result;
+}
+
+async function insertUser (email, password) {
+  const result = await pool.query(`
+    INSERT INTO users (email, password) 
+    VALUES (?, ?)
+    `, [email, password]);
+
+  return result;
+}
+
+module.exports = {
+  getAllUserData,
+  getUserDataById,
+  getUserDataByEmail,
+  removeUserById,
+  insertUser
+};
