@@ -40,7 +40,7 @@ const sessionConfig = {
   }
 }
 
-app.use(serve(path.join(__dirname, 'public')))
+app.use(serve(path.join(process.cwd(), 'src', 'public')))
 app.keys = ['supersecret']
 app.use(session(sessionConfig, app))
 app.use(router.routes())
