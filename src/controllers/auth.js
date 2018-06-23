@@ -19,6 +19,7 @@ module.exports = function (pool) {
       let reqPassword = ctx.request.body.password
       const [rowsUser] = await usersModel.findByEmail(pool, reqEmail)
 
+      console.log(rowsUser)
       if (!rowsUser) {
         ctx.session.flash = { error: 'Invalid email or password' }
         return ctx.redirect('/signin')
@@ -31,7 +32,7 @@ module.exports = function (pool) {
         return ctx.redirect('/signin')
       }
 
-      ctx.session.userId = 20010
+      ctx.session.userId = rowsUser.id
       ctx.redirect('/')
     },
 

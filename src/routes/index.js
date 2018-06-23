@@ -2,8 +2,8 @@ const Router = require('koa-router')
 
 const router = new Router()
 
-const authen = async (ctx, next) => { //Authen middleware
-  if(ctx.session && (ctx.session.userId && ctx.session.userId === 20010)) {
+const authen = async (ctx, next) => { // Authen middleware
+  if (ctx.session && ctx.session.userId) {
     console.log(`session userId : ${ctx.session.userId}`)
     await next()
     return
