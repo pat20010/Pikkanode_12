@@ -9,6 +9,7 @@
   "author": "Thanapon Jaisanuk",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^2.2.1",
     "bcrypt": "^2.0.1",
     "fs-extra": "^6.0.1",
     "koa": "^2.5.1",
@@ -17,6 +18,7 @@
     "koa-router": "^7.4.0",
     "koa-session": "^5.8.1",
     "koa-static": "^4.0.3",
-    "mysql2": "^1.5.3"
+    "mysql2": "^1.5.3",
+    "uuid": "^3.2.1"
   }
 }
