@@ -1,19 +1,18 @@
-const picturesModel = require('../models/pictures')
+const { pictures } = require('../models')
 
-module.exports = function (pool) {
-  return {
+async function mainGetHandler (ctx) {
+  if (ctx.session && ctx.session.userId) {
+    const rowsPicture = await pictures.getAllPictureData()
+    console.log(rowsPicture)
 
-    async mainGetHandler (ctx) {
-      if (ctx.session && ctx.session.userId) {
-        const dataPicture = await picturesModel.findAll(pool)
-        console.log(dataPicture)
-
-        await ctx.render('main', {
-          allPicture: dataPicture
-        })
-        return
-      }
-      await ctx.render('index')
-    }
+    await ctx.render('main', {
+      allPicture: rowsPicture
+    })
+    return
   }
+  await ctx.render('index')
+}
+
+module.exports = {
+  mainGetHandler
 }
