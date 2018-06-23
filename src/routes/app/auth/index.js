@@ -1,10 +1,9 @@
 const Router = require('koa-router')
-const authController = require('../controllers/auth')
 const koaBody = require('koa-body')
-const pool = require('../config/connectDB')
+
+const auth = require('../../../controllers/auth')
 
 const router = new Router()
-const auth = authController(pool)
 
 const authAlready = async (ctx, next) => { // Auth already exist
   if (ctx.session && ctx.session.userId) {

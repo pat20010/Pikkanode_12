@@ -1,10 +1,9 @@
 const Router = require('koa-router')
-const pikkaController = require('../controllers/pikka')
 const koaBody = require('koa-body')
-const pool = require('../config/connectDB')
+
+const pikka = require('../../../controllers/pikka')
 
 const router = new Router()
-const pikka = pikkaController(pool)
 
 router.get('/create', pikka.createGetHandler)
 router.post('/create', koaBody({ multipart: true }), pikka.createPostHandler)
