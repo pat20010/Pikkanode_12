@@ -9,7 +9,7 @@
                 <!-- Upload  -->
                 <article class="card-body p-0">
                     <!-- form sign up -->
-                    <form method="POST">
+                    <form method="POST" enctype="multipart/form-data">
 
                         <div class="form-group form-control-sm mb-2 m-0 p-0 mw-100 p-3">
                             <img id="blah" class="card-img-top h-100" src="/images/icon_blank.png" alt="your image" />
@@ -27,7 +27,7 @@
                                 <div class="col-md-6 text-left">
                                     <div id='blockSelectImage' class="form-group form-control-sm mb-2 px-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" style="display: none" id="inputGroupFile01" onchange="readURL(this);">
+                                            <input type="file" name="uploadImage" class="custom-file-input" style="display: none" id="inputGroupFile01" accept="image/jpeg, image/png" onchange="readURL(this);">
                                             <label for="inputGroupFile01" class="btn btn-outline-success">Select image</label>
                                         </div>
                                     </div>

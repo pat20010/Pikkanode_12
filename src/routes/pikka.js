@@ -7,7 +7,7 @@ const router = new Router()
 const pikka = pikkaController(pool)
 
 router.get('/create', pikka.createGetHandler)
-router.post('/create', koaBody(), pikka.createPostHandler)
+router.post('/create', koaBody({ multipart: true }), pikka.createPostHandler)
 
 router.get('/pikka/:id', pikka.detailGetHandler)
 
