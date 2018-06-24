@@ -16,16 +16,16 @@ async function signUp (email, password) {
     throw new Error('password required')
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10)
+  const hashedPassword = await bcrypt.hash(password, 12)
   return users.insertUser(email, hashedPassword)
 }
 
 /**
  * signIn
- * verify user email and password
+ * verify user email and password then return user id
  * @param {string} email
  * @param {string} password
- * @returns {Promise<boolean>}
+ * @returns {Promise<number>}
  */
 async function signIn (email, password) {
   if (!email) {
@@ -36,12 +36,20 @@ async function signIn (email, password) {
   }
 
   const userData = await users.getUserDataByEmail(email)
+  console.log(userData[0])
 
-  if (!userData) {
+  if (!userData[0]) {
     throw new Error('Invalid email or password')
   }
 
-  return bcrypt.compare(password, userData.password)
+  const success = await bcrypt.compare(password, userData[0].password)
+  console.log(`Sign in status : ${success}`)
+
+  if (!success) {
+    throw new Error('Invalid email or password')
+  }
+
+  return userData[0].id
 }
 
 module.exports = {
