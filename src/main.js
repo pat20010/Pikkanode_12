@@ -40,11 +40,24 @@ const sessionConfig = {
   }
 }
 
-app.use(serve(path.join(process.cwd(), 'src', 'public')))
+const stripPrefix = async (ctx, next) => {
+  if (!ctx.path.startsWith('/-')) {
+    ctx.status = 404
+    return
+  }
+
+  ctx.path = ctx.path.slice(2)
+  await next()
+}
+
 app.keys = ['supersecret']
 app.use(session(sessionConfig, app))
+
 app.use(router.routes())
 app.use(router.allowedMethods())
+
+app.use(stripPrefix)
+app.use(serve(path.join(process.cwd(), 'src', 'public')))
 
 fse.ensureDir(dirPathImage, () => {
   app.listen(3000)
