@@ -35,7 +35,7 @@ async function insertPicture (id, caption, createdBy) {
     VALUES (?, ?, ?)
     `, [id, caption, createdBy])
 
-  return result[0]
+  return result[0].insertId
 }
 
 module.exports = {

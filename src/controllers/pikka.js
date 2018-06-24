@@ -15,7 +15,7 @@ async function createPostHandler (ctx) {
   const imagesDir = path.join(process.cwd(), 'src', 'public', 'imagesUpload')
   await fse.move(reqPathImageUpload, path.join(imagesDir, `${fileName}.jpg`))
 
-  const [rowsInsert] = await pictures.insertPicture(fileName, reqCaption, ctx.session.userId)
+  const rowsInsert = await pictures.insertPicture(fileName, reqCaption, ctx.session.userId)
   console.log(rowsInsert)
 
   console.log(imagesDir)
