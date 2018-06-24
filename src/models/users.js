@@ -1,12 +1,12 @@
 const pool = require('../config/connectDB')
 
 async function getAllUserData () {
-  const [result] = await pool.query(`
+  const result = await pool.query(`
     SELECT * 
     FROM users
     `)
 
-  return result
+  return result[0]
 }
 
 async function getUserDataById (id) {
@@ -21,7 +21,7 @@ async function getUserDataById (id) {
 
 async function getUserDataByEmail (email) {
   const result = await pool.query(`
-    SELECT * 
+    SELECT id, email, password, created_at 
     FROM users 
     WHERE email = ?
     `, [email])
@@ -46,11 +46,11 @@ async function removeUserById (id) {
     WHERE id = ?
     `, [id])
 
-  return result
+  return result[0]
 }
 
 async function insertUser (email, password) {
-  const result = await pool.query(`
+  const [result] = await pool.query(`
     INSERT INTO users (email, password) 
     VALUES (?, ?)
     `, [email, password])
