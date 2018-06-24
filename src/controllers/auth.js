@@ -1,6 +1,6 @@
 const mysqlError = require('mysql2/lib/constants/errors')
+const auth = require('../service/auth')
 const { users } = require('../models')
-const bcrypt = require('bcrypt')
 
 async function signInGetHandler (ctx) {
   console.log(`Flash : ` + ctx.flash)
@@ -13,24 +13,32 @@ async function signInGetHandler (ctx) {
 }
 
 async function signInPostHandler (ctx) {
-  let reqEmail = ctx.request.body.email
-  let reqPassword = ctx.request.body.password
-  const rowUser = await users.getUserDataByEmail(reqEmail)
+  const { email, password } = ctx.request.body
 
-  console.log(rowUser)
-  if (!rowUser) {
-    ctx.session.flash = { error: 'Invalid email or password' }
-    return ctx.redirect('/signin')
+  try {
+    const success = await auth.signIn(email, password)
+    console.log(`Sign in status : ${success}`)
+
+    if (!success) {
+      ctx.session.flash = { error: 'Invalid email or password' }
+      ctx.redirect('/signin')
+      return
+    }
+
+    const dataUser = await users.getUserDataByEmail(email)
+
+    if (!dataUser) {
+      ctx.session.flash = { error: 'Invalid user not found' }
+      ctx.redirect('/signin')
+      return
+    }
+
+    ctx.session.userId = dataUser[0].id
+    ctx.redirect('/')
+  } catch (err) {
+    ctx.session.flash = { error: err.message }
+    ctx.redirect('/signin')
   }
-
-  const same = await bcrypt.compare(reqPassword, rowUser[0].password)
-  if (!same) {
-    ctx.session.flash = { error: `Invalid email or password` }
-    return ctx.redirect('/signin')
-  }
-
-  ctx.session.userId = rowUser[0].id
-  ctx.redirect('/')
 }
 
 async function signUpGetHandler (ctx) {
@@ -38,14 +46,16 @@ async function signUpGetHandler (ctx) {
 }
 
 async function signUpPostHandler (ctx) {
-  let reqEmail = ctx.request.body.email
-  let reqPassword = ctx.request.body.password
-  const encryptPassword = await bcrypt.hash(reqPassword, 12)
-  console.log(encryptPassword)
+  const { email, password } = ctx.request.body
 
   try {
-    const rowInsert = await users.insertUser(reqEmail, reqPassword)
-    console.log(rowInsert)
+    const success = await auth.signUp(email, password)
+    console.log(`Sign up status : ${success}`)
+
+    if (!success) {
+      ctx.redirect('/signup')
+      return
+    }
 
     ctx.redirect('/signin')
   } catch (err) {
