@@ -1,12 +1,12 @@
 const pool = require('../config/connectDB')
 
 async function getAllPictureData () {
-  const [result] = await pool.query(`
+  const result = await pool.query(`
     SELECT * 
     FROM pictures
     `)
 
-  return result
+  return result[0]
 }
 
 async function getPictureDataById (id) {
@@ -26,7 +26,7 @@ async function removePictureById (id) {
     WHERE id = ?
     `, [id])
 
-  return result
+  return result[0]
 }
 
 async function insertPicture (id, caption, createdBy) {
@@ -35,7 +35,7 @@ async function insertPicture (id, caption, createdBy) {
     VALUES (?, ?, ?)
     `, [id, caption, createdBy])
 
-  return result
+  return result[0]
 }
 
 module.exports = {
