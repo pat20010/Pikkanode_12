@@ -1,7 +1,7 @@
 const uuidv4 = require('uuid/v4')
 const fse = require('fs-extra')
 const path = require('path')
-const { pictures } = require('../models')
+const { pictures } = require('../../models')
 
 async function createGetHandler (ctx) {
   await ctx.render('upload')

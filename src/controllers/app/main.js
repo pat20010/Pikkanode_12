@@ -1,4 +1,4 @@
-const { pictures } = require('../models')
+const { pictures } = require('../../models')
 
 async function mainGetHandler (ctx) {
   if (ctx.session && ctx.session.userId) {

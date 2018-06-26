@@ -1,5 +1,5 @@
 const mysqlError = require('mysql2/lib/constants/errors')
-const auth = require('../service/auth')
+const auth = require('../../service/auth')
 
 async function signInGetHandler (ctx) {
   const data = {
