@@ -1,11 +1,10 @@
-// const Router = require('koa-router')
+const Router = require('koa-router')
+const auth = require('../../../../controllers/api/auth')
 
-// const router = new Router()
+const router = new Router()
 
-// router.post('/signup', auth.signInGetHandler)
-// router.post('/signin', koaBody(), auth.signInPostHandler)
+router.post('/signin', auth.signIn)
+router.post('/signup', auth.signUp)
+router.post('/signout', auth.signOut)
 
-// router.get('/signup', authAlready, auth.signUpGetHandler)
-// router.post('/signup', koaBody(), auth.signUpPostHandler)
-
-// module.exports = router.routes()
+module.exports = router.routes()
