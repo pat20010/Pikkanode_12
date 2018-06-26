@@ -1,4 +1,5 @@
 const { users } = require('../models')
+const regEx = require('../config/regEx')
 const bcrypt = require('bcrypt')
 
 /**
@@ -12,8 +13,17 @@ async function signUp (email, password) {
   if (!email) {
     throw new Error('email required')
   }
+
+  if (!regEx.EMAIL.test(email)) {
+    throw new Error('Invalid email')
+  }
+
   if (!password) {
     throw new Error('password required')
+  }
+
+  if (password.length < 6) {
+    throw new Error('Password too short')
   }
 
   const hashedPassword = await bcrypt.hash(password, 12)
