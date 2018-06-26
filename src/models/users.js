@@ -50,7 +50,7 @@ async function removeUserById (id) {
 }
 
 async function insertUser (email, password) {
-  const [result] = await pool.query(`
+  const result = await pool.query(`
     INSERT INTO users (email, password) 
     VALUES (?, ?)
     `, [email, password])
