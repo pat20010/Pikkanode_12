@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 const koaBody = require('koa-body')
 
-const pikka = require('../../../controllers/pikka')
+const pikka = require('../../../controllers/app/pikka')
 
 const router = new Router()
 

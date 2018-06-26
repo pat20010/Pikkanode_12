@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 const koaBody = require('koa-body')
 
-const auth = require('../../../controllers/auth')
+const auth = require('../../../controllers/app/auth')
 
 const router = new Router()
 

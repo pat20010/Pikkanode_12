@@ -10,6 +10,7 @@ const flash = async (ctx, next) => { // Flash middleware
   await next()
 }
 
+router.use('/api', require('./api'))
 router.use(flash)
 router.use(require('./app'))
 
