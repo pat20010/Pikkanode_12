@@ -1,3 +1,31 @@
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '217901308844855',
+            cookie: true,
+            xfbml: true,
+            version: 'v3.0'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=217901308844855&autoLogAppEvents=1";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function statusChangeLogin(response) {
+        if (response.status === 'connected') {
+            console.log('login with facebook success')
+        } else {
+            console.log('login with facebook fail')
+        }
+    }
+</script>
+
 <!-- row -->
 <div class="row-column justify-content-center my-5 ml-10 mr-10">
     <!-- card -->
@@ -54,18 +82,23 @@
                         <div class="form-group form-control-sm mb-0">
                             <button class="btn btn-dark btn-block">Sign in</button>
                         </div>
-                        <!-- form-group.// -->
-                    </form>
-                    <!-- form sign in.// -->
-        </article>
-        <!-- card body.// -->
-
-        <footer class="border-top card-body text-center py-2">Don't have a Account?
-            <a href="/signup">Sign Up</a>
-        </footer>
-
-
+                        <div class="form-group form-control-sm mb-0">
+                            <div class="loginBtn loginBtn--facebook" onclick="FB.login(statusChangeLogin)">
+                                Continue with Facebook
+                            </div>
+                        </div>
     </div>
-    <!-- card.// -->
+    <!-- form-group.// -->
+    </form>
+    <!-- form sign in.// -->
+    </article>
+    <!-- card body.// -->
+
+    <footer class="card-body text-center py-2">Don't have a Account?
+        <a href="/signup">Sign Up</a>
+    </footer>
+
+</div>
+<!-- card.// -->
 </div>
 <!-- row.// -->
