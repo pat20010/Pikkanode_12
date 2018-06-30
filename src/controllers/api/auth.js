@@ -47,10 +47,8 @@ async function signUp (ctx) {
 }
 
 function signOut (ctx) {
-  ctx.status = 500
-  ctx.body = {
-    error: 'sign out not implement'
-  }
+  ctx.status = 200
+  ctx.body = {}
 }
 
 module.exports = {

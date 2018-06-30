@@ -3,6 +3,6 @@ const koaBody = require('koa-body')
 
 const router = new Router()
 
-router.use(koaBody(), require('./auth'))
+router.use('/auth', koaBody(), require('./auth'))
 
 module.exports = router.routes()
