@@ -62,5 +62,5 @@ app.use(stripPrefix)
 app.use(serve(path.join(process.cwd(), 'src', 'public')))
 
 fse.ensureDir(dirPathImage, () => {
-  app.listen(3000)
+  app.listen(8000)
 })
