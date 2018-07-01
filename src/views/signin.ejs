@@ -13,15 +13,36 @@
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) { return; }
         js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=217901308844855&autoLogAppEvents=1";
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    function statusChangeLogin(response) {
-        if (response.status === 'connected') {
-            console.log('login with facebook success')
+    function checkLoginState(response) {
+        console.log(response);
+        if (response.status == 'connected') {
+            FB.api('/me', { locale: 'en_US', fields: 'id, name, email' }, response => {
+                form = document.createElement('form')
+                form.method = 'POST'
+                form.action = '/signin'
+                let facebookUserInfo = {
+                    userFacebookId: response.id,
+                    name: response.name,
+                    email: response.email
+                }
+                for (let data in facebookUserInfo) {
+                    console.log(data)
+                    input = document.createElement('input')
+                    input.setAttribute('name', data)
+                    input.setAttribute('value', facebookUserInfo[data])
+                    input.setAttribute('type', 'hidden')
+                    form.appendChild(input)
+                }
+                form.appendChild(input)
+                document.body.appendChild(form)
+                form.submit()
+            })
         } else {
-            console.log('login with facebook fail')
+            console.log('Disconnect from Facebook')
         }
     }
 </script>
@@ -83,7 +104,7 @@
                             <button class="btn btn-dark btn-block">Sign in</button>
                         </div>
                         <div class="form-group form-control-sm mb-0">
-                            <div class="loginBtn loginBtn--facebook" onclick="FB.login(statusChangeLogin)">
+                            <div class="loginBtn loginBtn--facebook" onclick="FB.login(checkLoginState)">
                                 Continue with Facebook
                             </div>
                         </div>
