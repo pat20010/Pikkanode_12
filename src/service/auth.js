@@ -15,7 +15,7 @@ async function signUp (email, password) {
   }
 
   if (!regEx.EMAIL.test(email)) {
-    throw new Error('Invalid email')
+    throw new Error('invalid email')
   }
 
   if (!password) {
@@ -23,7 +23,7 @@ async function signUp (email, password) {
   }
 
   if (password.length < 6) {
-    throw new Error('Password too short')
+    throw new Error('password too short')
   }
 
   const hashedPassword = await bcrypt.hash(password, 12)
@@ -39,24 +39,24 @@ async function signUp (email, password) {
  */
 async function signIn (email, password) {
   if (!email) {
-    throw new Error('Email required')
+    throw new Error('email required')
   }
   if (!password) {
-    throw new Error('Password required')
+    throw new Error('password required')
   }
 
   const userData = await users.getUserDataByEmail(email)
   console.log(userData[0])
 
   if (!userData[0]) {
-    throw new Error('Invalid email or password')
+    throw new Error('invalid email or password')
   }
 
   const success = await bcrypt.compare(password, userData[0].password)
   console.log(`Sign in status : ${success}`)
 
   if (!success) {
-    throw new Error('Invalid email or password')
+    throw new Error('wrong email or password')
   }
 
   return userData[0].id

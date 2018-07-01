@@ -34,7 +34,7 @@ async function signUp (ctx) {
       case mysqlError.ER_DUP_ENTRY:
         ctx.status = 400
         ctx.body = {
-          error: 'Email already used'
+          error: 'email already used'
         }
         break
       default:
