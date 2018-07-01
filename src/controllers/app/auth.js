@@ -1,5 +1,6 @@
 const mysqlError = require('mysql2/lib/constants/errors')
 const auth = require('../../service/auth')
+const { users } = require('../../models')
 
 async function signInGetHandler (ctx) {
   const data = {
@@ -11,18 +12,39 @@ async function signInGetHandler (ctx) {
 }
 
 async function signInPostHandler (ctx) {
-  const { email, password } = ctx.request.body
+  const { userFacebookId, email, password } = ctx.request.body
 
-  try {
-    const userId = await auth.signIn(email, password)
+  if (userFacebookId) {
+    try {
+      const userData = await users.getUserDataByEmail(email)
+      console.log(userData[0])
 
-    ctx.session.userId = userId
-    ctx.redirect('/')
-  } catch (err) {
-    console.error(err)
+      if (!userData[0]) {
+        const insertId = await users.insertUser(email, '')
+        ctx.session.userId = insertId
+      } else {
+        ctx.session.userId = userData[0].id
+      }
 
-    ctx.session.flash = { error: err.message }
-    ctx.redirect('/signin')
+      ctx.redirect('/')
+    } catch (err) {
+      console.error(err)
+
+      ctx.session.flash = { error: err.message }
+      ctx.redirect('/signin')
+    }
+  } else {
+    try {
+      const userId = await auth.signIn(email, password)
+
+      ctx.session.userId = userId
+      ctx.redirect('/')
+    } catch (err) {
+      console.error(err)
+
+      ctx.session.flash = { error: err.message }
+      ctx.redirect('/signin')
+    }
   }
 }
 
