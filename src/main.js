@@ -9,8 +9,8 @@ const fse = require('fs-extra')
 
 const app = new Koa()
 app.use(cors({
-  origin: 'http://localhost:8000',
-  allowedMethods: ['POST']
+  // origin: 'http://localhost:8000'
+  credentials: true
 }))
 
 const dirPathImage = path.join(process.cwd(), 'src', 'public', 'imagesUpload')
