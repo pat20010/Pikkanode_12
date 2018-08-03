@@ -30,8 +30,9 @@ async function getPicturePikka (ctx) {
 }
 
 async function postPicturePikka (ctx) {
+  console.log(ctx.request.body)
   try {
-    const pictureId = pikka.uploadPicture(
+    const pictureId = await pikka.uploadPicture(
       ctx.request.body.caption,
       ctx.request.files.picture,
       ctx.session.userId
