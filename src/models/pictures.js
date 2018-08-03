@@ -9,6 +9,22 @@ async function getAllPictureData () {
   return result[0]
 }
 
+async function getPictureCommentLikeData () {
+  const result = await pool.query(`
+    SELECT p.id, p.caption, p.created_at, u.email as created_by, 
+    COUNT(c.picture_id) as comment_count,
+    COUNT(l.picture_id) as like_count 
+    FROM pikkanode.pictures p JOIN pikkanode.users u 
+    ON p.created_by = u.id 
+    LEFT JOIN pikkanode.comments c 
+    ON p.id = c.picture_id 
+    LEFT JOIN pikkanode.likes l 
+    ON l.user_id = u.id 
+    GROUP BY p.id`)
+
+  return result[0]
+}
+
 async function getPictureDataById (id) {
   const result = await pool.query(`
     SELECT * 
@@ -40,6 +56,7 @@ async function insertPicture (id, caption, createdBy) {
 
 module.exports = {
   getAllPictureData,
+  getPictureCommentLikeData,
   getPictureDataById,
   removePictureById,
   insertPicture
