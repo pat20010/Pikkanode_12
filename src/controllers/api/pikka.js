@@ -38,9 +38,12 @@ async function postPicturePikka (ctx) {
       ctx.session.userId
     )
 
+    const pictureDate = await pictures.getPictureCreateDateById(pictureId)
+
     ctx.status = 200
     ctx.body = {
-      id: pictureId
+      id: pictureId,
+      createdAt: pictureDate[0].created_at
     }
   } catch (err) {
     ctx.status = 400

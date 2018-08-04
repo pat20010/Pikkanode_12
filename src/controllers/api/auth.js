@@ -5,10 +5,11 @@ async function signIn (ctx) {
   const { email, password } = ctx.request.body
 
   try {
-    await auth.signIn(email, password)
+    const userId = await auth.signIn(email, password)
 
     ctx.status = 200
     ctx.body = {}
+    ctx.session.userId = userId
   } catch (err) {
     console.error(err)
     ctx.status = 400
@@ -49,6 +50,7 @@ async function signUp (ctx) {
 function signOut (ctx) {
   ctx.status = 200
   ctx.body = {}
+  ctx.session.userId = null
 }
 
 module.exports = {
