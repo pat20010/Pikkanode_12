@@ -46,12 +46,22 @@ async function removePictureById (id) {
 }
 
 async function insertPicture (id, caption, createdBy) {
-  const result = await pool.query(`
+  await pool.query(`
     INSERT INTO pictures (id, caption, created_by) 
     VALUES (?, ?, ?)
     `, [id, caption, createdBy])
 
-  return result[0].insertId
+  return id
+}
+
+async function getPictureCreateDateById (id) {
+  const result = await pool.query(`
+    SELECT created_at 
+    FROM pictures 
+    WHERE id = ?
+    `, [id])
+
+  return result[0]
 }
 
 module.exports = {
@@ -59,5 +69,6 @@ module.exports = {
   getPictureCommentLikeData,
   getPictureDataById,
   removePictureById,
-  insertPicture
+  insertPicture,
+  getPictureCreateDateById
 }
