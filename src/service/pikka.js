@@ -17,8 +17,16 @@ async function uploadPicture (caption, picture, createdBy) {
     'image/jpeg': true
   }
 
+  if (!picture) {
+    throw new Error('picture required')
+  }
+
+  if (!caption) {
+    throw new Error('caption required')
+  }
+
   if (!allowFileType[picture.type]) {
-    throw new AppError('file type not allow', 400)
+    throw new Error('file type not allow')
   }
 
   const fileName = uuidv4()
